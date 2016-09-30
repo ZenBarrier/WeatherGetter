@@ -12,7 +12,11 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug{
+            resValue "string", "open_weather_api_key", rootProject.ext.openWeatherApiKey
+        }
         release {
+            resValue "string", "open_weather_api_key", rootProject.ext.openWeatherApiKey
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
