@@ -10,8 +10,57 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.zenbarrier.weathergetter.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:id="@+id/linearLayout"
+        android:background="@drawable/stormy"
+        android:backgroundTint="@color/colorBackgroundTint"
+        android:backgroundTintMode="src_over">
+
+        <TextView
+            android:text="Enter a city..."
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:id="@+id/instructionTextView"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/white"
+            android:textSize="32sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:inputType="textPersonName"
+            android:hint="City Name"
+            android:ems="10"
+            android:id="@+id/cityEditText"
+            android:layout_weight="1"
+            android:textColor="@android:color/white"
+            android:textColorHint="@color/colorBackgroundTint"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
+
+        <Button
+            android:text="What's the weather?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/weatherButton" />
+
+        <TextView
+            tools:text="Rain"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/resultTextView"
+            android:layout_weight="4"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+    </LinearLayout>
+
 </RelativeLayout>
