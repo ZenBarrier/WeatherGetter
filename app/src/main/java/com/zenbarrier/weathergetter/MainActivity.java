@@ -6,6 +6,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +19,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,6 +70,24 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             Log.i("Result",s);
+            TextView resultView = (TextView)findViewById(R.id.resultTextView);
+            resultView.setText("");
+            String resultText = "";
+
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+                resultText += jsonObject.getString("name")+"\n";
+                JSONArray jsonArray = jsonObject.getJSONArray("weather");
+                for(int i = 0 ; i < jsonArray.length() ; i++){
+                    JSONObject object = jsonArray.getJSONObject(i);
+                    String main = object.getString("main");
+                    String description = object.getString("description");
+                    resultText += String.format("%s: %s\n",main,description);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            resultView.setText(resultText);
         }
     }
 }
