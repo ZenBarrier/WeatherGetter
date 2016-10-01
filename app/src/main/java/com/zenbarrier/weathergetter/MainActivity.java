@@ -1,10 +1,13 @@
 package com.zenbarrier.weathergetter;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
         WeatherTask weatherTask = new WeatherTask();
         EditText cityText = (EditText)findViewById(R.id.cityEditText);
 
+        InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.hideSoftInputFromWindow(cityText.getWindowToken(),0);
+
         String location = cityText.getText().toString().trim();
         try {
             location = URLEncoder.encode(location, "UTF-8");
@@ -44,6 +50,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final EditText cityText = (EditText)findViewById(R.id.cityEditText);
+        cityText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_ENTER){
+                    getWeather(cityText);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     class WeatherTask extends AsyncTask<String, Void, String>{
